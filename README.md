@@ -1,0 +1,1 @@
+# obsidian-syntax-highlighting-gen
