@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Syntax Highlighting generator</title>
+    </head>
+    <h1>Obsidian Syntax Highlighting Generator</h1>
+    <body>
+        <slot />
+    </body>
+    <footer class="footer">
+        <p>
+            <p>
+                Created with ❤️ by
+                <a href="https://github.com/juanchiparra" class="external"
+                    >Juanchi Parra</a
+                >
+            </p>
+            <p>
+                Source code available
+                <a
+                    href="https://github.com/juanchiparra/obsidian-syntax-highlighting-gen"
+                    class="external">here</a
+                >
+            </p>
+        </p>
+    </footer>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            font-family: "Inter", "Roboto";
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 650;
+            letter-spacing: 0.01em;
+            color: #23241f;
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 110ch;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.4rem;
+            border-radius: 10px;
+            max-width: 110ch;
+            width: 100%;
+            margin: 2.5rem auto;
+        }
+
+        footer p {
+            font-size: 0.79rem;
+            margin: 0.5rem auto;
+        }
+
+        a {
+            color: #23241f;
+            text-underline-offset: 0.1rem;
+        }
+    </style>
+
+
+</html>
