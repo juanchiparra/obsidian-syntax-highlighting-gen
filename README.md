@@ -4,15 +4,17 @@ Generate your own syntax highlighting and use it in Obsidian.
 
 Demo: https://juanchiparra.github.io/obsidian-syntax-highlighting-gen/
 
+![](syntax-highlighting-generator.png)
+
 ### For future upgrade
 - Fix inconsistency in the generator
 - Add multiple default styles
 - Improve "Random Color" logic for better combinations
 
 ## How to Use
-- Go to https://juanchiparra.github.io/obsidian-syntax-highlighting-gen/
-- Select your colors: Choose a default syntax highlighting, select colors for each element, or use "Random Colors"
-- Get your code: Click the "Copy CSS" button and paste it into a .css file
+- Go to the [demo](https://juanchiparra.github.io/obsidian-syntax-highlighting-gen/)
+- **Select your colors:** Choose a default syntax highlighting, select colors for each element, or use "Random Colors"
+- **Get your code:** Click the "Copy CSS" button and paste it into a .css file
 - Save the file in your Obsidian vault (.obsidian/snippets/)
 - Activate the snippet: In Obsidian, go to Settings > Appearance > CSS Snippets and select your file
 - Enjoy your new syntax highlighting
@@ -36,7 +38,7 @@ astro-life-in-weeks/
 ## Getting started
 ```bash
 # Clone this repository
-git clone https://github.com/tu-usuario/obsidian-syntax-highlighting-gen.git
+git clone https://github.com/juanchiparra/obsidian-syntax-highlighting-gen.git
 cd obsidian-syntax-highlighting-gen
     
 ## Install the dependencies
