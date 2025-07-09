@@ -38,7 +38,19 @@ const keys = [
         <div class="color-grid">
             {
                 keys.map((key) => (
-                    <label class="color-label">
+                    <label
+                        class="color-label"
+                        style="display:flex;align-items:center;gap:0.5rem;"
+                    >
+                        <button
+                            type="button"
+                            class="block-btn"
+                            data-key={key}
+                            aria-label="Block color"
+                            style="background:none;border:none;cursor:pointer;font-size:1.2em;display:flex;align-items:center;"
+                        >
+                            <span class="block-icon" data-key={key} />
+                        </button>
                         <span>{key}</span>
                         <input
                             type="color"
@@ -54,32 +66,6 @@ const keys = [
             }
         </div>
         <button id="copy" type="button" class="button" aria-label="Copy CSS">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                style="vertical-align:middle;margin-right:6px;"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                ><rect
-                    x="9"
-                    y="9"
-                    width="13"
-                    height="13"
-                    rx="2"
-                    fill="#fff"
-                    stroke="#bbb"
-                    stroke-width="1.5"></rect><rect
-                    x="3"
-                    y="3"
-                    width="13"
-                    height="13"
-                    rx="2"
-                    fill="#fff"
-                    stroke="#bbb"
-                    stroke-width="1.5"></rect></svg
-            >
             Copy CSS
         </button>
         <button
@@ -158,6 +144,39 @@ const keys = [
     const random = document.getElementById("random");
     const colors = { ...styles["Monokai Sublime"] };
     let currentStyle = "Monokai Sublime";
+
+    const block = {};
+    keys.forEach((key) => (block[key] = false));
+
+    function getBlock(locked) {
+        return locked
+            ? `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" style="display:block" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="8" width="12" height="8" rx="2" stroke="#888" stroke-width="1.5" fill="none"/>
+            <path d="M7 8V6a3 3 0 1 1 6 0v2" stroke="#888" stroke-width="1.5" fill="none"/>
+        </svg>`
+            : `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" style="display:block" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="8" width="12" height="8" rx="2" stroke="#bbb" stroke-width="1.5" fill="none"/>
+            <path d="M7 8V6a3 3 0 1 1 6 0" stroke="#bbb" stroke-width="1.5" fill="none"/>
+        </svg>`;
+    }
+
+    function updateBlock() {
+        keys.forEach((key) => {
+            const icon = form.querySelector(`.block-icon[data-key="${key}"]`);
+            if (icon) icon.innerHTML = getBlock(block[key]);
+        });
+    }
+
+    form.addEventListener("click", (e) => {
+        const btn = e.target.closest(".block-btn");
+        if (btn) {
+            const key = btn.getAttribute("data-key");
+            block[key] = !block[key];
+            updateBlock();
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
 
     function updateCSS(colors) {
         const roots = [
@@ -244,20 +263,23 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
     }
 
     function RandomStyle() {
-        let bg, text;
-        do {
-            bg = randomColor();
-            text = randomColor();
-        } while (contrast(bg, text) < 4.5);
+        let bg = colors.background,
+            text = colors.normal;
+        if (!block.background || !block.normal) {
+            do {
+                if (!block.background) bg = randomColor();
+                if (!block.normal) text = randomColor();
+            } while (contrast(bg, text) < 4.5);
+        }
         const newColors = { ...colors };
-        newColors.background = bg;
-        newColors.normal = text;
+        if (!block.background) newColors.background = bg;
+        if (!block.normal) newColors.normal = text;
         keys.forEach((key) => {
-            if (key !== "background" && key !== "normal") {
+            if (key !== "background" && key !== "normal" && !block[key]) {
                 let col;
                 do {
                     col = randomColor();
-                } while (contrast(bg, col) < 2.5);
+                } while (contrast(newColors.background, col) < 2.5);
                 newColors[key] = col;
             }
         });
@@ -265,6 +287,7 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
     }
 
     updateCSS(colors);
+    updateBlock();
 
     form.addEventListener("input", (e) => {
         if (e.target.type === "color") {
