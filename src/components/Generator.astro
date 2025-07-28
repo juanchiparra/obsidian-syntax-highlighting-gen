@@ -312,7 +312,7 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
         return color;
     }
 
-    function randomStyle() {
+    function RandomStyle() {
         let bg = block.background
             ? colors.background
             : randomBackground(Math.random() < 0.5 ? "dark" : "light");
@@ -363,7 +363,7 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
     });
 
     random.addEventListener("click", () => {
-        const randomStyle = randomStyle();
+        const randomStyle = RandomStyle();
         Object.assign(colors, randomStyle);
         updateColor();
         updateCSS(colors);
