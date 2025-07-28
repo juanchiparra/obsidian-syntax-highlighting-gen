@@ -8,7 +8,6 @@ Demo: https://juanchiparra.github.io/obsidian-syntax-highlighting-gen/
 
 ### For future upgrade
 - Fix inconsistency in the generator
-- Add multiple default styles
 - Improve "Random Color" logic for better combinations
 
 ## How to Use
