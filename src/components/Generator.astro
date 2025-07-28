@@ -29,9 +29,16 @@ const keys = [
             <label for="color-select">Syntax Highlighiting</label>
             <select id="color-select" data-styles={JSON.stringify(styles)}>
                 {
-                    Object.keys(styles).map((name) => (
-                        <option value={name}>{name}</option>
-                    ))
+                    Object.keys(styles)
+                        .sort((a, b) => a.localeCompare(b))
+                        .map((name) => (
+                            <option
+                                value={name}
+                                selected={name === "Monokai Sublime"}
+                            >
+                                {name}
+                            </option>
+                        ))
                 }
             </select>
         </div>
@@ -209,6 +216,7 @@ const keys = [
             });
         });
     }
+
     function generateCSS(colors, styleName) {
         return `
 body {
@@ -256,31 +264,73 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
             )
             .reduce((a, c, i) => a + c * [0.2126, 0.7152, 0.0722][i], 0);
     }
+
     function contrast(hex1, hex2) {
         const l1 = luminance(hex1);
         const l2 = luminance(hex2);
         return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
     }
 
-    function RandomStyle() {
-        let bg = colors.background,
-            text = colors.normal;
-        if (!block.background || !block.normal) {
-            do {
-                if (!block.background) bg = randomColor();
-                if (!block.normal) text = randomColor();
-            } while (contrast(bg, text) < 4.5);
-        }
+    function randomBackground(type = "dark") {
+        const darks = [
+            "#23241f",
+            "#282a36",
+            "#1e1e1e",
+            "#22212c",
+            "#212121",
+            "#181818",
+            "#2d2d2d",
+            "#24292e",
+            "#0d1117",
+        ];
+        const lights = [
+            "#f5f5f5",
+            "#fafafa",
+            "#ffffff",
+            "#f7f7f7",
+            "#ececec",
+            "#eaeaea",
+            "#e0e0e0",
+            "#f8f8f2",
+        ];
+        const targetPalette = type === "light" ? lights : darks;
+        return targetPalette[Math.floor(Math.random() * targetPalette.length)];
+    }
+
+    function getBackground(hex) {
+        return luminance(hex) < 0.5 ? "dark" : "light";
+    }
+
+    function getContrastColor(bg, minContrast = 4.5) {
+        let color;
+        let tries = 0;
+        do {
+            color = randomColor();
+            tries++;
+            if (tries > 30) break;
+        } while (contrast(bg, color) < minContrast);
+        return color;
+    }
+
+    function randomStyle() {
+        let bg = block.background
+            ? colors.background
+            : randomBackground(Math.random() < 0.5 ? "dark" : "light");
+        let bgType = getBackground(bg);
+
+        let text = block.normal ? colors.normal : getContrastColor(bg, 5);
+
         const newColors = { ...colors };
         if (!block.background) newColors.background = bg;
         if (!block.normal) newColors.normal = text;
+
         keys.forEach((key) => {
             if (key !== "background" && key !== "normal" && !block[key]) {
-                let col;
-                do {
-                    col = randomColor();
-                } while (contrast(newColors.background, col) < 2.5);
-                newColors[key] = col;
+                if (key === "comment") {
+                    newColors[key] = bgType === "dark" ? "#888888" : "#666666";
+                } else {
+                    newColors[key] = getContrastColor(bg, 3);
+                }
             }
         });
         return newColors;
@@ -313,7 +363,7 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
     });
 
     random.addEventListener("click", () => {
-        const randomStyle = RandomStyle();
+        const randomStyle = randomStyle();
         Object.assign(colors, randomStyle);
         updateColor();
         updateCSS(colors);
