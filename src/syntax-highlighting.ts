@@ -12,10 +12,8 @@ export const styles = {
         string: "#e6db74",
         tag: "#f8f8f2",
         value: "#ae81ff",
-        className: "#f8f8f2",
         boolean: "#ae81ff",
         console: "#e6db74",
-        builtin: "#e6db74",
         variable: "#e6db74",
     },
     Dracula: {
@@ -31,10 +29,8 @@ export const styles = {
         string: "#f1fa8c",
         tag: "#bd93f9",
         value: "#bd93f9",
-        className: "#f8f8f2",
         boolean: "#bd93f9",
         console: "#f1fa8c",
-        builtin: "#8be9fd",
         variable: "#f8f8f2",
     },
     "GitHub Dark": {
@@ -50,10 +46,8 @@ export const styles = {
         string: "#a5d6ff",
         tag: "#7ee787",
         value: "#79C0FF",
-        className: "#ffa657",
         boolean: "#7ee787",
         console: "#c9d1d9",
-        builtin: "#a5d6ff",
         variable: "#a5d6ff",
     },
     "Tokyo Night Dark": {
@@ -70,7 +64,6 @@ export const styles = {
         tag: "#f7768e",
         value: "#ff9e64",
         console: "#f7768e",
-        builtin: "#7dcfff",
         variable: "#9aa5ce",
     },
     "Tomorrow Night Bright": {
@@ -87,7 +80,6 @@ export const styles = {
         tag: "#cc99cc",
         value: "#e78c45",
         console: "#d54e53",
-        builtin: "#7aa6da",
         variable: "#cccccc",
     },
     "Atom One Dark": {
@@ -119,7 +111,6 @@ export const styles = {
         tag: "#39BAE6",
         value: "#f5ab35",
         console: "#ffa07a",
-        builtin: "#00e0e0",
         variable: "#d4d4d4",
     },
     Aurora: {
@@ -166,7 +157,6 @@ export const styles = {
         string: "#2AA198",
         tag: "#268BD2",
         value: "#D33682",
-        builtin: "#268BD2",
         variable: "#657B83",
     },
     "Atom One Light": {
