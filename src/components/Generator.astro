@@ -16,7 +16,6 @@ const keys = [
     "value",
     "boolean",
     "console",
-    "variable",
     "selector",
 ];
 ---
@@ -90,13 +89,13 @@ const keys = [
         <h3>Python</h3>
         <div id="code-preview">
             <pre>
-<span class="token variable">x</span> <span class="token operator">=</span> <span class="token value">10</span>
+<span class="token normal">x</span> <span class="token operator">=</span> <span class="token value">10</span>
 <br />
-<span class="token keyword">if</span> <span class="token variable">x</span> <span class="token operator">&gt;</span> <span class="token value">5</span><span class="token punctuation">:</span>
-<br />&nbsp;&nbsp;<span class="token console">print</span><span class="token punctuation">(</span><span class="token string">"x is greater than 5"</span><span class="token punctuation">)</span>
-<br />&nbsp;&nbsp;<span class="token keyword">if</span> <span class="token variable">x</span> <span class="token operator">%</span> <span class="token value">2</span> <span class="token operator">==</span> <span class="token value">0</span><span class="token punctuation">:</span>
-<br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="token console">print</span><span class="token punctuation">(</span><span class="token string">"x is even"</span><span class="token punctuation">)</span> <span class="token comment"># Nested code block</span>
-<br /><span class="token keyword">def</span> <span class="token function">fuction</span><span class="token punctuation">(</span><span class="token variable">x</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+<span class="token keyword">if</span> <span class="token normal">x</span> <span class="token operator">&gt;</span> <span class="token value">5</span><span class="token punctuation">:</span>
+<br />&nbsp;&nbsp;<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"x is greater than 5"</span><span class="token punctuation">)</span>
+<br />&nbsp;&nbsp;<span class="token keyword">if</span> <span class="token normal">x</span> <span class="token operator">%</span> <span class="token value">2</span> <span class="token operator">==</span> <span class="token value">0</span><span class="token punctuation">:</span>
+<br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"x is even"</span><span class="token punctuation">)</span> <span class="token comment"># Nested code block</span>
+<br /><span class="token keyword">def</span> <span class="token function">fuction</span><span class="token punctuation">(</span><span class="token normal">x</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
 <br />&nbsp;&nbsp;<span class="token keyword">return</span>
         </pre>
         </div>
@@ -140,7 +139,6 @@ const keys = [
         "value",
         "boolean",
         "console",
-        "variable",
         "selector",
     ];
 
@@ -204,7 +202,6 @@ const keys = [
             selector: "--code-tag",
             value: "--code-value",
             boolean: "--code-boolean",
-            variable: "--code-variable",
             console: "--code-console",
         };
         roots.forEach((root) => {
@@ -497,6 +494,9 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
         margin: 0;
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.04);
     }
+    .token.operator {
+        color: var(--code-operator, #f8f8f2);
+    }
 
     .token.comment {
         color: var(--code-comment, #75715e);
@@ -512,9 +512,6 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
     }
     .token.console {
         color: var(--code-console, #e6db74);
-    }
-    .token.variable {
-        color: var(--code-variable, #e6db74);
     }
     .token.property {
         color: var(--code-property, #a6e22e);
