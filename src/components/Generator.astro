@@ -23,7 +23,7 @@ const keys = [
 <section class="container">
     <form id="color-form">
         <div class="select">
-            <label for="color-select">Syntax Highlighiting</label>
+            <label for="color-select">Syntax Highlighting</label>
             <select id="color-select" data-styles={JSON.stringify(styles)}>
                 {
                     Object.keys(styles)
@@ -44,16 +44,12 @@ const keys = [
                 keys
                     .filter((key) => defaultColors[key] !== undefined)
                     .map((key) => (
-                        <label
-                            class="color-label"
-                            style="display:flex;align-items:center;gap:0.5rem;"
-                        >
+                        <label class="color-label">
                             <button
                                 type="button"
                                 class="block-btn"
                                 data-key={key}
                                 aria-label="Block color"
-                                style="background:none;border:none;cursor:pointer;font-size:1.2em;display:flex;align-items:center;"
                             >
                                 <span class="block-icon" data-key={key} />
                             </button>
@@ -79,7 +75,6 @@ const keys = [
             type="button"
             class="button"
             aria-label="Random colors"
-            style="margin-left: 0.5rem;"
         >
             Random colors
         </button>
@@ -95,14 +90,14 @@ const keys = [
 <br />&nbsp;&nbsp;<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"x is greater than 5"</span><span class="token punctuation">)</span>
 <br />&nbsp;&nbsp;<span class="token keyword">if</span> <span class="token normal">x</span> <span class="token operator">%</span> <span class="token value">2</span> <span class="token operator">==</span> <span class="token value">0</span><span class="token punctuation">:</span>
 <br />&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"x is even"</span><span class="token punctuation">)</span> <span class="token comment"># Nested code block</span>
-<br /><span class="token keyword">def</span> <span class="token function">fuction</span><span class="token punctuation">(</span><span class="token normal">x</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+<br /><span class="token keyword">def</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token normal">x</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
 <br />&nbsp;&nbsp;<span class="token keyword">return</span>
-        </pre>
+            </pre>
         </div>
         <h3>JavaScript</h3>
         <div id="code-preview-js">
             <pre>
-<span class="token keyword">function</span> <span class="token function">helloWolrd</span>() {'{'
+<span class="token keyword">function</span> <span class="token function">helloWorld</span>() {'{'
 }
 <br />&nbsp;&nbsp;<span class="token console">console</span><span class="token punctuation">.</span>log<span class="token punctuation">(</span><span class="token string">'hi!'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
 <br />{'}'}
@@ -182,11 +177,7 @@ const keys = [
     });
 
     function updateCSS(colors) {
-        const roots = [
-            document.querySelector("#code-preview pre"),
-            document.querySelector("#code-preview-js pre"),
-            document.querySelector("#code-preview-css pre"),
-        ];
+        const roots = document.querySelectorAll(".preview pre");
         const cssMap = {
             background: "--code-background",
             normal: "--code-normal",
@@ -199,13 +190,12 @@ const keys = [
             punctuation: "--code-punctuation",
             string: "--code-string",
             tag: "--code-tag",
-            selector: "--code-tag",
+            selector: "--code-selector",
             value: "--code-value",
             boolean: "--code-boolean",
             console: "--code-console",
         };
         roots.forEach((root) => {
-            if (!root) return;
             Object.entries(cssMap).forEach(([key, cssVar]) => {
                 root.style.setProperty(cssVar, colors[key] ?? colors.normal);
             });
@@ -224,7 +214,7 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
     color: ${colors.string};
 }
 .markdown-preview-view .token.selector {
-    color: ${colors.tag ?? colors.keyword};
+    color: ${colors.selector ?? colors.tag ?? colors.keyword};
 }
 .markdown-preview-view .token.console {
     color: ${colors.console ?? colors.normal};
@@ -363,7 +353,7 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
 </script>
 
 <style>
-    body {
+    :global(body) {
         background: #f5f5f5;
     }
 
@@ -419,10 +409,21 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
         margin-bottom: 2rem;
     }
 
+    .block-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2em;
+        display: flex;
+        align-items: center;
+        padding: 0;
+    }
+
     .color-label {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 0.5rem;
         font-size: 0.95rem;
         background: #f7f7f7;
         border-radius: 8px;
@@ -456,48 +457,22 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
         color: #23241f;
     }
 
-    #code-preview pre {
+    .preview pre {
         background: var(--code-background, #23241f);
         color: var(--code-normal, #f8f8f2);
         padding: 1.2em 1em;
         border-radius: 10px;
-        font-size: 13px;
+        font-size: var(--code-size, 13px);
         font-family: "Fira Mono", monospace;
-        white-space: pre-wrap;
+        white-space: var(--code-white-space, pre-wrap);
         overflow-x: auto;
         margin: 0;
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.04);
     }
 
-    #code-preview-js pre {
-        background: var(--code-background, #23241f);
-        color: var(--code-normal, #f8f8f2);
-        padding: 1.2em 1em;
-        border-radius: 10px;
-        font-size: 13px;
-        font-family: "Fira Mono", monospace;
-        white-space: pre-wrap;
-        overflow-x: auto;
-        margin: 0;
-        box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.04);
-    }
-
-    #code-preview-css pre {
-        background: var(--code-background, #23241f);
-        color: var(--code-normal, #f8f8f2);
-        padding: 1.2em 1em;
-        border-radius: 10px;
-        font-size: 13px;
-        font-family: "Fira Mono", monospace;
-        white-space: pre-wrap;
-        overflow-x: auto;
-        margin: 0;
-        box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.04);
-    }
     .token.operator {
         color: var(--code-operator, #f8f8f2);
     }
-
     .token.comment {
         color: var(--code-comment, #75715e);
     }
@@ -517,7 +492,7 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
         color: var(--code-property, #a6e22e);
     }
     .token.selector {
-        color: var(--code-tag, #f92672);
+        color: var(--code-selector, #f92672);
     }
     .token.value {
         color: var(--code-value, #ae81ff);
@@ -531,8 +506,9 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
     .token.punctuation {
         color: var(--code-punctuation, #f8f8f2);
     }
+
     .button {
-        display: inline;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
         font-size: 0.97rem;
@@ -548,6 +524,9 @@ ${keys.map((key) => `    --code-${key}: ${colors[key] ?? "#cccccc"};`).join("\n"
         margin-bottom: 0.5rem;
         box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.03);
         outline: none;
+    }
+    .button + .button {
+        margin-left: 0.5rem;
     }
     .button:hover,
     .button:focus {
