@@ -2,75 +2,97 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content="Generate syntax highlighting themes for Obsidian from your palette."
+        />
         <link
             rel="icon"
             type="image/svg+xml"
             href="/obsidian-syntax-highlighting-gen/favicon.svg"
         />
         <meta name="generator" content={Astro.generator} />
-        <title>Syntax Highlighting generator</title>
+        <title>Syntax Highlighting Generator</title>
     </head>
-    <h1>Obsidian Syntax Highlighting Generator</h1>
+
     <body>
-        <slot />
-    </body>
-    <footer class="footer">
-        <p>
+        <header class="site-header">
+            <h1>Obsidian Syntax Highlighting Generator</h1>
+        </header>
+
+        <main id="main">
+            <slot />
+        </main>
+
+        <footer>
             <p>
                 Created with ❤️ by
-                <a href="https://github.com/juanchiparra" class="external"
-                    >Juanchi Parra</a
+                <a
+                    href="https://github.com/juanchiparra"
+                    class="external"
+                    target="_blank"
+                    rel="noopener noreferrer">Juanchi Parra</a
                 >
             </p>
             <p>
                 Source code available
                 <a
                     href="https://github.com/juanchiparra/obsidian-syntax-highlighting-gen"
-                    class="external">here</a
+                    class="external"
+                    target="_blank"
+                    rel="noopener noreferrer">here</a
                 >
             </p>
-        </p>
-    </footer>
-
-    <style>
-        html,
-        body {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-            font-family: "Inter", "Roboto";
-        }
-
-        h1 {
-            font-size: 1.6rem;
-            font-weight: 650;
-            letter-spacing: 0.01em;
-            color: #23241f;
-            text-align: center;
-            margin: 2rem auto;
-            max-width: 110ch;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.4rem;
-            border-radius: 10px;
-            max-width: 110ch;
-            width: 100%;
-            margin: 2.5rem auto;
-        }
-
-        footer p {
-            font-size: 0.79rem;
-            margin: 0.5rem auto;
-        }
-
-        a {
-            color: #23241f;
-            text-underline-offset: 0.1rem;
-        }
-    </style>
-
-
+        </footer>
+    </body>
 </html>
+
+<style>
+    :global(html, body) {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        font-family:
+            "Inter",
+            "Roboto",
+            system-ui,
+            -apple-system,
+            "Segoe UI",
+            Arial,
+            sans-serif;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        color: #23241f;
+        text-align: center;
+        margin: 2rem auto;
+        max-width: 110ch;
+    }
+
+    main {
+        display: block;
+    }
+
+    footer {
+        text-align: center;
+        padding: 1.4rem;
+        border-radius: 10px;
+        max-width: 110ch;
+        width: 100%;
+        margin: 2.5rem auto;
+    }
+
+    footer p {
+        font-size: 0.79rem;
+        margin: 0.5rem auto;
+    }
+
+    :global(a) {
+        color: #23241f;
+        text-underline-offset: 0.1rem;
+    }
+</style>
